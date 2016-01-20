@@ -43,15 +43,9 @@ sed -ri 's@^server 0\.fedora.*$@server metadata.google.internal iburst@' /etc/nt
 systemctl disable firewalld.service iptables.service
 systemctl stop firewalld.service iptables.service
 
-# yum updates
-sed -ri 's@apply_updates = no@apply_updates = yes@' /etc/yum/yum-cron.conf
 
-# ssh config
-## delete the keys
-rm /etc/ssh/ssh_host_key
-rm /etc/ssh/ssh_host_rsa_key*
-rm /etc/ssh/ssh_host_dsa_key*
-rm /etc/ssh/ssh_host_ecdsa_key*
+
+
 
 ## patch sshd_config
 patch /etc/ssh/sshd_config < <( cat << 'EOF'
@@ -166,9 +160,9 @@ EOF
 
 # repos
 ## install epel
-yum -y install http://dl.fedoraproject.org/pub/epel/beta/7/x86_64/epel-release-7-0.2.noarch.rpm
+
 
 ## update
-yum -y upgrade
+
 
 exit 0
